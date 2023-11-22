@@ -1,8 +1,16 @@
 import { useState } from "react";
 
-const RegisterForm = () => {
+const RegisterForm = ({
+  handleSubmit,
+  username,
+  setUsername,
+  email,
+  setEmail,
+  password,
+  setPassword
+}) => {
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <div class="form-group p-2 m-3">
         <label for="exampleInputUsername">Username</label>
         <input
@@ -11,6 +19,8 @@ const RegisterForm = () => {
           id="exampleInputUsername"
           aria-describedby="UsernameHelp"
           placeholder="Enter username"
+          value={username}
+          onChange={(e)=>setUsername(e.target.value)}
         />
         <small id="textHelp" class="form-text text-muted">
           We'll never share your username with anyone else.
@@ -25,6 +35,8 @@ const RegisterForm = () => {
           id="exampleInputEmail1"
           aria-describedby="emailHelp"
           placeholder="Enter email"
+          value={email}
+          onChange={(e)=>setEmail(e.target.value)}
         />
         <small id="emailHelp" class="form-text text-muted">
           We'll never share your email with anyone else.
@@ -38,6 +50,8 @@ const RegisterForm = () => {
           class="form-control"
           id="exampleInputPassword1"
           placeholder="Password"
+          value={password}
+          onChange={(e)=>setPassword(e.target.value)}
         />
       </div>
       <button type="submit" class="btn btn-primary m-3">

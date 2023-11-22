@@ -1,11 +1,31 @@
 import TopNav from "../../Components/TopNav";
-import { useSelector } from "react-redux";
 import RegisterForm from "../../Components/Auth/RegisterForm";
 import { useState } from "react";
+import axios from "axios";
+import {toast} from "react-toastify"
 
 const Register = () =>{
-    const {auth} = useSelector((state)=>({...state}));
+    const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    
+    const handleSubmit = async(e) =>{
+      e.preventDefault();
 
+      try {
+        const res = await axios.post(`${process.env.REACT_APP_API_SERVER}/register`,{
+          username: username,
+          email: email,
+          password: password,
+        });
+
+        toast.success(`Registration success.`);
+        console.log(res);
+
+      } catch (error) {
+        toast.error(error.response.data);
+      }
+    }
     return(
         <>
         <TopNav/>
@@ -15,7 +35,15 @@ const Register = () =>{
             <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
           </div>
           <div className="bg-light border rounded-3">
-            <RegisterForm/>
+            <RegisterForm
+            handleSubmit={handleSubmit}
+            username={username}
+            setUsername={setUsername}
+            email={email}
+            setEmail={setEmail}
+            password={password}
+            setPassword={setPassword}
+            />
           </div>
         </div>
         </div>
