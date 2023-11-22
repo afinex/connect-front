@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from "react-router-dom";
 
 const TopNav = () => {
     return (
@@ -13,7 +14,7 @@ const TopNav = () => {
                     </a>
 
                     <ul className="nav nav-pills col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                        <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">Home</a></li>
+                        <li class="nav-item"><Link to="/" class="nav-link active" aria-current="page">Home</Link></li>
                         <li><a href="#" className="nav-link px-2 link-secondary">Overview</a></li>
                         <li><a href="#" className="nav-link px-2 link-dark">Inventory</a></li>
                         <li><a href="#" className="nav-link px-2 link-dark">Customers</a></li>
@@ -24,8 +25,8 @@ const TopNav = () => {
                         <input type="search" className="form-control" placeholder="Search..." aria-label="Search" />
                     </form>
 
-                    <button className='btn btn-primary mx-2'>Login</button>
-                    <button className='btn btn-primary mx-2'>Register</button>
+                    <Link to="/login" className='btn btn-primary mx-2'>Login</Link>
+                    <Link to="/register" className='btn btn-primary mx-2'>Register</Link>
                     {/* <div className="dropdown text-end">
                         <a href="#" className="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                             <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" className="rounded-circle" />
