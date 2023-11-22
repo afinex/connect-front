@@ -1,6 +1,9 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
 import './index.css';
+import 'react-toastify/dist/ReactToastify.css';
+
+import { ToastContainer } from 'react-toastify';
 
 import React from 'react';
 import ReactDOM from 'react-dom/client';
@@ -32,6 +35,18 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
+    <ToastContainer
+      position="top-right"
+      autoClose={3000}
+      hideProgressBar={false}
+      newestOnTop
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      theme="light"
+      />
       <App />
     </Provider>
   </React.StrictMode>
