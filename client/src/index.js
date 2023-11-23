@@ -14,7 +14,7 @@ import {composeWithDevTools} from "redux-devtools-extension";
 
 import App from './App';
 
-const authReducer = (state={name :'fin'}, action) =>{
+const authReducer = (state={}, action) =>{
   switch(action.type){
     case "LOGGED_IN_USER":
       return {...state,...action.payload};
