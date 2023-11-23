@@ -17,6 +17,7 @@ const Login = () =>{
           password:password,
         })
 
+        window.localStorage.setItem("auth", JSON.stringify(res.data.auth));
         toast.success(`Logged in .`)
         console.log(res);
       } catch (error) {
