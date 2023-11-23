@@ -1,15 +1,19 @@
+import axios from "axios";
+import { useState } from "react";
+import { useHistory } from "react-router-dom";
+
 import TopNav from "../../Components/TopNav";
 import RegisterForm from "../../Components/Auth/RegisterForm";
-import { useState } from "react";
-import axios from "axios";
 import {toast} from "react-toastify"
 
 const Register = () =>{
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    
-    const handleSubmit = async(e) =>{
+
+    let history = useHistory();
+
+    const handleSubmit = async(e ) =>{
       e.preventDefault();
 
       try {
@@ -20,6 +24,7 @@ const Register = () =>{
         });
 
         toast.success(`Registration success.`);
+        history.push('/login');
         console.log(res);
 
       } catch (error) {
