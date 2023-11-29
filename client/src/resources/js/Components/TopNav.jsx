@@ -1,7 +1,30 @@
 import React from 'react';
+import {toast} from "react-toastify";
+
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+
 import {Link} from "react-router-dom";
 
 const TopNav = () => {
+    const history = useHistory();
+    const dispatch = useDispatch();
+    const { auth } = useSelector((state) => ({ ...state }));
+  
+    const logoutUser = () => {
+      try {
+        dispatch({
+          type: "LOGGED_OUT_USER",
+          payload: null,
+        });
+        window.localStorage.removeItem("auth");
+        toast.success(`Session logged out.`);
+        history.push('/login');
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  
     return (
         <>
         <header className="p-3 mb-3 border-bottom">
@@ -25,20 +48,20 @@ const TopNav = () => {
                         <input type="search" className="form-control" placeholder="Search..." aria-label="Search" />
                     </form>
 
-                    <Link to="/login" className='btn btn-primary mx-2'>Login</Link>
-                    <Link to="/register" className='btn btn-primary mx-2'>Register</Link>
-                    {/* <div className="dropdown text-end">
+                    { auth === null && (<Link to="/login" className='btn btn-primary mx-2'>Login</Link>)}
+                    { auth === null && (<Link to="/register" className='btn btn-primary mx-2'>Register</Link>)}
+                    { auth !== null && (<div className="dropdown text-end">
                         <a href="#" className="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                             <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" className="rounded-circle" />
                         </a>
                         <ul className="dropdown-menu text-small">
-                            <li><a className="dropdown-item" href="#">New project...</a></li>
-                            <li><a className="dropdown-item" href="#">Settings</a></li>
-                            <li><a className="dropdown-item" href="#">Profile</a></li>
+                            {/* <li><a className="dropdown-item" href="#">New project...</a></li> */}
+                            {/* <li><a className="dropdown-item" href="#">Settings</a></li> */}
+                            {/* <li><a className="dropdown-item" href="#">Profile</a></li> */}
                             <li><hr className="dropdown-divider" /></li>
-                            <li><a className="dropdown-item" href="#">Sign out</a></li>
+                            <li><a className="dropdown-item pointer" onClick={logoutUser}>Sign out</a></li>
                         </ul>
-                    </div> */}
+                    </div>)}
                 </div>
             </div>
         </header>
