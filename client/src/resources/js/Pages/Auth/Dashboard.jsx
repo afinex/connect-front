@@ -1,8 +1,7 @@
 import { useSelector } from "react-redux";
 import TopNav from "../../Components/TopNav";
 
-const Dashboard = () =>{
-    const {auth} = useSelector((state)=>({...state}));
+const Dashboard = ({auth}) =>{
     
     return(
         <>
