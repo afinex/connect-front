@@ -18,7 +18,7 @@ const TopNav = () => {
           payload: null,
         });
         window.localStorage.removeItem("auth");
-        toast.success(`Session logged out.`);
+        toast.success(`Logged out.`);
         history.push('/login');
       } catch (error) {
         console.log(error);
