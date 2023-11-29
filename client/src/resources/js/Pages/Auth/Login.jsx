@@ -1,6 +1,10 @@
 import TopNav from "../../Components/TopNav";
 import LoginForm from "../../Components/Auth/LoginForm";
+
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
+
 import axios from "axios";
 import {toast} from "react-toastify";
 
@@ -8,6 +12,9 @@ const Login = () =>{
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
+    const history = useHistory();
+    const dispatch = useDispatch();
+    
     const handleSubmit = async(e) =>{
       e.preventDefault();
 
@@ -18,7 +25,13 @@ const Login = () =>{
         })
 
         window.localStorage.setItem("auth", JSON.stringify(res.data.auth));
+        dispatch({
+          type : "LOGGED_IN_USER",
+          payload : res.data,
+        });
+
         toast.success(`Logged in .`)
+        history.push('/');
         console.log(res);
       } catch (error) {
         toast.error(error.response.data);
