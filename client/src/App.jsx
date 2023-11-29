@@ -8,6 +8,8 @@ import { useSelector } from "react-redux";
 
 import Home from "./resources/js/Pages/Home";
 import Dashboard from "./resources/js/Pages/Auth/Dashboard";
+import Profile from "./resources/js/Pages/Auth/Profile";
+
 
 const App = () => {
   const {auth} = useSelector((state)=>({...state}));
@@ -15,27 +17,26 @@ const App = () => {
   return (
     <BrowserRouter>
     <Switch>
-      <Route exact path="/" render={()=>auth ? <Dashboard/> : <Home/>}></Route>
+      <Route exact path="/" render={()=>auth ? <Dashboard auth={auth}/> : <Home/>}></Route>
+      <Route exact path="/profile" render={()=>auth ? <Profile auth={auth}/> : <Redirect to="/login"></Redirect>}></Route>
 
       <Route
-          exact
-          path="/login"
-          render={() =>
-            auth ? <Redirect to="/" /> : <Login />
-          }
+        path="/login"
+        render={() =>
+          auth ? <Redirect to="/" /> : <Login />
+        }
       >
       </Route>
       
       <Route
-          exact
-          path="/register"
-          render={() =>
-            auth ? <Redirect to="/" /> : <Register />
-          }
+        path="/register"
+        render={() =>
+          auth ? <Redirect to="/" /> : <Register />
+        }
       >
       </Route>
+
       
-      <Redirect to="/"></Redirect>
     </Switch>
     </BrowserRouter>
   );
