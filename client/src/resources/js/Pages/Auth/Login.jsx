@@ -31,7 +31,6 @@ const Login = () =>{
         });
 
         toast.success(`Logged in .`)
-        history.push('/');
         console.log(res);
       } catch (error) {
         toast.error(error.response.data);
