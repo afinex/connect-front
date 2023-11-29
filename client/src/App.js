@@ -1,10 +1,13 @@
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
-import Index from "./resources/js/Pages/Index";
 import Login from "./resources/js/Pages/Auth/Login";
 import Register from "./resources/js/Pages/Auth/Register";
+
 import { Redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
+
+import Home from "./resources/js/Pages/Home";
+import Dashboard from "./resources/js/Pages/Auth/Dashboard";
 
 const App = () => {
   const {auth} = useSelector((state)=>({...state}));
@@ -12,7 +15,7 @@ const App = () => {
   return (
     <BrowserRouter>
     <Switch>
-      <Route exact path="/" component={Index}></Route>
+      <Route exact path="/" render={()=>auth ? <Dashboard/> : <Home/>}></Route>
 
       <Route
           exact
