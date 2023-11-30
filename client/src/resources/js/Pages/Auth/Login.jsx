@@ -24,14 +24,14 @@ const Login = () =>{
           password:password,
         })
 
-        window.localStorage.setItem("auth", JSON.stringify(res.data.auth));
+        window.localStorage.setItem("auth", JSON.stringify(res.data));
+        
         dispatch({
           type : "LOGGED_IN_USER",
           payload : res.data,
         });
 
         toast.success(`Logged in .`)
-        console.log(res);
       } catch (error) {
         toast.error(error.response.data);
       }
