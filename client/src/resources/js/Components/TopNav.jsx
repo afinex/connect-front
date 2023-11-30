@@ -58,6 +58,7 @@ const TopNav = () => {
                         <ul className="dropdown-menu text-small">
                             {/* <li><a className="dropdown-item" href="#">New project...</a></li> */}
                             {/* <li><a className="dropdown-item" href="#">Settings</a></li> */}
+                            <li><Link to={`/${data.auth.user.username}`} className="dropdown-item">Profile</Link></li>
                             <li><hr className="dropdown-divider" /></li>
                             <li><a className="dropdown-item pointer" onClick={logoutUser}>Sign out</a></li>
                         </ul>

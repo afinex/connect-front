@@ -35,6 +35,8 @@ const App = () => {
       
       <Route exact path="/" render={()=>data ? <Dashboard data={data}/> : <Home/>}></Route>
 
+      <Route exact path="/:username" render={()=>data ? <Profile data={data}/> : <Redirect to="/login"></Redirect>}></Route>
+      
     </Switch>
     </BrowserRouter>
   );
