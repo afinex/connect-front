@@ -9,7 +9,8 @@ import {Link} from "react-router-dom";
 const TopNav = () => {
     const history = useHistory();
     const dispatch = useDispatch();
-    const { auth } = useSelector((state) => ({ ...state }));
+
+    const {data} = useSelector((state) => ({ ...state }));
   
     const logoutUser = () => {
       try {
@@ -48,16 +49,15 @@ const TopNav = () => {
                         <input type="search" className="form-control" placeholder="Search..." aria-label="Search" />
                     </form>
 
-                    { auth === null && (<Link to="/login" className='btn btn-primary mx-2'>Login</Link>)}
-                    { auth === null && (<Link to="/register" className='btn btn-primary mx-2'>Register</Link>)}
-                    { auth !== null && (<div className="dropdown text-end">
+                    { data === null && (<Link to="/login" className='btn btn-primary mx-2'>Login</Link>)}
+                    { data === null && (<Link to="/register" className='btn btn-primary mx-2'>Register</Link>)}
+                    { data !== null && (<div className="dropdown text-end">
                         <a href="#" className="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                             <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" className="rounded-circle" />
                         </a>
                         <ul className="dropdown-menu text-small">
                             {/* <li><a className="dropdown-item" href="#">New project...</a></li> */}
                             {/* <li><a className="dropdown-item" href="#">Settings</a></li> */}
-                            <li><Link to="/profile" className="dropdown-item">Profile</Link></li>
                             <li><hr className="dropdown-divider" /></li>
                             <li><a className="dropdown-item pointer" onClick={logoutUser}>Sign out</a></li>
                         </ul>

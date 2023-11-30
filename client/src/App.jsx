@@ -12,18 +12,15 @@ import Profile from "./resources/js/Pages/Auth/Profile";
 
 
 const App = () => {
-  const {auth} = useSelector((state)=>({...state}));
+  const {data} = useSelector((state)=>({...state}));
 
   return (
     <BrowserRouter>
     <Switch>
-      <Route exact path="/" render={()=>auth ? <Dashboard auth={auth}/> : <Home/>}></Route>
-      <Route exact path="/profile" render={()=>auth ? <Profile auth={auth}/> : <Redirect to="/login"></Redirect>}></Route>
-
       <Route
         path="/login"
         render={() =>
-          auth ? <Redirect to="/" /> : <Login />
+          data ? <Redirect to="/" /> : <Login />
         }
       >
       </Route>
@@ -31,12 +28,13 @@ const App = () => {
       <Route
         path="/register"
         render={() =>
-          auth ? <Redirect to="/" /> : <Register />
+          data ? <Redirect to="/" /> : <Register />
         }
       >
       </Route>
-
       
+      <Route exact path="/" render={()=>data ? <Dashboard data={data}/> : <Home/>}></Route>
+
     </Switch>
     </BrowserRouter>
   );
