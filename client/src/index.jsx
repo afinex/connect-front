@@ -33,7 +33,7 @@ const authReducer = (state = userState, action) =>{
 }
 
 const rootReducer = combineReducers({
-  auth : authReducer,
+  data : authReducer,
 })
 
 const store = createStore(rootReducer, composeWithDevTools());
