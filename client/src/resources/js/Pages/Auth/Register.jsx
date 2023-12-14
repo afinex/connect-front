@@ -2,7 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 
-import TopNav from "../../Components/TopNav";
+import SideNav from "../../Components/SideNav";
 import RegisterForm from "../../Components/Auth/RegisterForm";
 import {toast} from "react-toastify"
 
@@ -33,7 +33,6 @@ const Register = () =>{
     }
     return(
         <>
-        <TopNav/>
         <div className="container-fluid pb-3">
         <div className="d-grid gap-3" style={{ gridTemplateColumns: '1fr 2fr' }}>
           <div className="bg-light border rounded-3">

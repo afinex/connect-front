@@ -1,10 +1,9 @@
-import TopNav from "../Components/TopNav";
+import SideNav from "../Components/SideNav";
 
 const Home = () =>{
 
     return(
         <>
-        <TopNav/>
         
         <div className="container-fluid pb-3">
         <div className="d-grid gap-3" style={{ gridTemplateColumns: '1fr 2fr' }}>

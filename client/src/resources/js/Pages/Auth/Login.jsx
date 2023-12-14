@@ -1,4 +1,4 @@
-import TopNav from "../../Components/TopNav";
+import SideNav from "../../Components/SideNav";
 import LoginForm from "../../Components/Auth/LoginForm";
 
 import { useState } from "react";
@@ -39,7 +39,6 @@ const Login = () =>{
 
     return(
       <>
-      <TopNav/>
       <div className="container-fluid pb-3">
       <div className="d-grid gap-3" style={{ gridTemplateColumns: '1fr 2fr' }}>
         <div className="bg-light border rounded-3">

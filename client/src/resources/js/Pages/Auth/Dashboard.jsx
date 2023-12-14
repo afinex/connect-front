@@ -1,27 +1,22 @@
-import { useSelector } from "react-redux";
-import TopNav from "../../Components/TopNav";
+// Dashboard.jsx
+import React from 'react';
+import { useSelector } from 'react-redux';
+import SideNav from '../../Components/SideNav';
+import DashboardContent from './DashboardContent';
 
-const Dashboard = ({data}) =>{
-    
-    return(
-        <>
-        <TopNav/>
-        
-        <div className="container-fluid pb-3">
-        <div className="d-grid gap-3" style={{ gridTemplateColumns: '1fr 2fr' }}>
-          <div className="bg-light border rounded-3">
-            <p>Home logged in</p>
-            <pre>{JSON.stringify(data,null,4)}</pre>
-            <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-          </div>
-
-          <div className="bg-light border rounded-3">
-            <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-          </div>
+const Dashboard = () => {
+  return (
+    <div className="row">
+      <div className="col-2 d-none d-md-block">
+        <SideNav />
+      </div>
+      <div className="col-md-10">
+        <div className="vh-100">
+          <DashboardContent />
         </div>
-        </div>
-        </>
-    )
-}
+      </div>
+    </div>
+  );
+};
 
 export default Dashboard;
