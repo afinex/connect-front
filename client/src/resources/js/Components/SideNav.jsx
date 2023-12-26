@@ -16,8 +16,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 
-import {refreshAccessTokenCookies} from "../../js/Helpers/functions";
-
 const Sidebar = () => {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -62,12 +60,6 @@ const Sidebar = () => {
           <Link to="/" className="nav-link">
             <HomeOutlined /> Home
           </Link>
-        </li>
-
-        <li className="nav-item">
-          <a onClick={refreshAccessTokenCookies} className="nav-link">
-            <HomeOutlined /> Home
-          </a>
         </li>
 
         <li className="nav-item">
