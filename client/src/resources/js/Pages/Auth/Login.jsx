@@ -22,10 +22,10 @@ const Login = () =>{
         const res = await axios.post(`${import.meta.env.VITE_APP_API_SERVER}/login`,{
           email:email,
           password:password,
-        })
+        },{
+          withCredentials : true,
+        });
 
-        window.localStorage.setItem("auth", JSON.stringify(res.data));
-        
         dispatch({
           type : "LOGGED_IN_USER",
           payload : res.data,
@@ -33,7 +33,7 @@ const Login = () =>{
 
         toast.success(`Logged in .`)
       } catch (error) {
-        toast.error(error.response.data);
+          toast.error(error.response.data);
       }
     }
 
