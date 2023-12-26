@@ -14,6 +14,9 @@ import { toast } from 'react-toastify';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import axios from 'axios';
+
+import {refreshAccessTokenCookies} from "../../js/Helpers/functions";
 
 const Sidebar = () => {
   const history = useHistory();
@@ -21,19 +24,32 @@ const Sidebar = () => {
 
   const { data } = useSelector((state) => ({ ...state }));
 
-  const logoutUser = () => {
+  const logoutUser = async () => {
     try {
-      dispatch({
-        type: 'LOGGED_OUT_USER',
-        payload: null,
-      });
-      window.localStorage.removeItem('auth');
-      toast.success(`Logged out.`);
-      history.push('/login');
+      const res = await axios.post(
+          `${import.meta.env.VITE_APP_API_SERVER}/logout`,
+          {},
+          {
+              withCredentials: true,
+          }
+      );
+
+      if (res.status === 200) {
+          dispatch({
+              type: 'LOGGED_OUT_USER',
+              payload: null,
+          });
+
+          toast.success(`Logged out.`);
+
+      } else {
+          console.error(`Logout failed with status: ${res.status}`);
+      }
     } catch (error) {
-      console.log(error);
+        console.error(error);
     }
   };
+
 
   return (
     <nav className="navbar navbar-dark d-flex flex-column sticky-sidebar">
@@ -46,6 +62,12 @@ const Sidebar = () => {
           <Link to="/" className="nav-link">
             <HomeOutlined /> Home
           </Link>
+        </li>
+
+        <li className="nav-item">
+          <a onClick={refreshAccessTokenCookies} className="nav-link">
+            <HomeOutlined /> Home
+          </a>
         </li>
 
         <li className="nav-item">
@@ -79,7 +101,7 @@ const Sidebar = () => {
           </a>
         </li>
         <li className="nav-item">
-          <Link to={`/${data.auth.user.username}`} className="nav-link">
+          <Link to={`/${data.username}`} className="nav-link">
             <img
               src="/image_pp_1.jpeg"
               alt="Profile"
@@ -90,7 +112,7 @@ const Sidebar = () => {
             <span className="">Profile</span>
           </Link>
         </li>
-        <span className='text-warning'>{ data.auth.user.username }</span>
+        <span className='text-warning'>{ data.username }</span>
       </ul>
     </nav>
   );
