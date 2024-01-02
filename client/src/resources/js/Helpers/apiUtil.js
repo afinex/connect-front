@@ -6,11 +6,13 @@ export const handleApiError = async (error, dispatch) => {
   if (error.response && error.response.status === 403) {
     try {
       await refreshAccessTokenCookies();
+      return { success: true };
     } catch (err) {
       return await handleRefreshTokenExpiration(dispatch);
     }
   } else {
     console.error('handleApiError:', err);
+    return { success: false };
   }
 };
 
@@ -31,8 +33,10 @@ export const handleRefreshTokenExpiration = async (dispatch) => {
             });
 
             toast.success(`Logged out.`);
+            return { success: true };
         } else {
-            console.error(`handleRefreshTokenExpiration: ${res.status}`);
+          console.error(`handleRefreshTokenExpiration: ${res.status}`);
+          return { success: false };
         }
     } catch (error) {
         console.error('Error logging out:', error);
