@@ -26,7 +26,10 @@ const PasswordSetting = ({data}) => {
 
       setApiData(await response.data);
     } catch (error) {
-      await handleApiError(error,dispatch);
+      const handleResult = await handleApiError(error, dispatch);
+      if (handleResult.success) {
+        fetchData();
+      }
     }
   };
 

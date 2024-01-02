@@ -12,6 +12,7 @@ import Profile from "./resources/js/Pages/Auth/Profile";
 import Messages from "./resources/js/Pages/Auth/Messages";
 import GeneralSetting from "./resources/js/Pages/Auth/User/Setting/General/GeneralSetting";
 import PasswordSetting from "./resources/js/Pages/Auth/User/Setting/Password/PasswordSetting";
+import Feed from "./resources/js/Pages/Auth/User/Feed/Feed";
 
 const App = () => {
   const {data} = useSelector((state)=>({...state})) || {};
@@ -58,7 +59,7 @@ const App = () => {
       >
       </Route>
       
-      <Route exact path="/" render={()=>isDataAvailable ? <Dashboard data={data}/> : <Redirect to="/login"></Redirect>}></Route>
+      <Route exact path="/" render={()=>isDataAvailable ? <Feed data={data}/> : <Redirect to="/login"></Redirect>}></Route>
       
       
       {/* this is for profile */}

@@ -8,6 +8,7 @@ import { LoadingOutlined } from "@ant-design/icons";
 import SideNav from "../../Components/SideNav";
 
 import { useDispatch } from 'react-redux';
+import CustomLayout from "../../Layout/CustomLayout";
 
 const Messages = ({data}) => {
   const [apiData, setApiData] = useState(null);
@@ -23,10 +24,12 @@ const Messages = ({data}) => {
           'Authorization': `Bearer ${fetchAccessCookies}`
         }
       });
-      
       setApiData(await response.data);
     } catch (error) {
-      await handleApiError(error, dispatch);
+      const handleResult = await handleApiError(error, dispatch);
+      if (handleResult.success) {
+        fetchData();
+      }
     }
   };
 
@@ -36,14 +39,8 @@ const Messages = ({data}) => {
 
   return (
     <>
-      <div className="row">
-        <div className="col-2 d-none d-md-block">
-          <SideNav />
-        </div>
-        <div className="col-md-10">
-          <div className="dashboard-content-container">
-          <div className="container-fluid pb-3">
-        <div className="d-grid gap-3" style={{ gridTemplateColumns: '1fr 2fr' }}>
+      <CustomLayout>
+      <div className="d-grid gap-3" style={{ gridTemplateColumns: '1fr 2fr' }}>
           <div className="bg-light border rounded-3">
             <p>Messages</p>
             { apiData &&(<pre>{JSON.stringify(apiData, null, 4)}</pre>)}
@@ -54,10 +51,7 @@ const Messages = ({data}) => {
             <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
           </div>
         </div>
-      </div>
-          </div>
-        </div>
-      </div>
+      </CustomLayout>
     </>
   );
 }
