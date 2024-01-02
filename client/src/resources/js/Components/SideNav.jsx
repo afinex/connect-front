@@ -1,112 +1,160 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Layout, Menu, Card, Avatar } from 'antd';
 import {
-  HomeOutlined,
-  SearchOutlined,
-  CompassOutlined,
-  MessageOutlined,
-  BellOutlined,
-  PlusOutlined,
-  LogoutOutlined,
+  HomeTwoTone,
+  SwitcherTwoTone,
+  CompassTwoTone,
+  MessageTwoTone,
+  BellTwoTone,
+  PlusSquareTwoTone,
+  CloseCircleTwoTone,
 } from '@ant-design/icons';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { toast } from 'react-toastify';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 
+const { Sider } = Layout;
+const { Meta } = Card;
+
 const Sidebar = () => {
-  const history = useHistory();
   const dispatch = useDispatch();
+  const [collapsed, setCollapsed] = useState(false);
 
   const { data } = useSelector((state) => ({ ...state }));
 
   const logoutUser = async () => {
     try {
       const res = await axios.post(
-          `${import.meta.env.VITE_APP_API_SERVER}/logout`,
-          {},
-          {
-              withCredentials: true,
-          }
+        `${import.meta.env.VITE_APP_API_SERVER}/logout`,
+        {},
+        {
+          withCredentials: true,
+        }
       );
 
       if (res.status === 200) {
-          dispatch({
-              type: 'LOGGED_OUT_USER',
-              payload: null,
-          });
+        dispatch({
+          type: 'LOGGED_OUT_USER',
+          payload: null,
+        });
 
-          toast.success(`Logged out.`);
-
+        toast.success(`Logged out.`);
       } else {
-          console.error(`Logout failed with status: ${res.status}`);
+        console.error(`Logout failed with status: ${res.status}`);
       }
     } catch (error) {
-        console.error(error);
+      console.error(error);
     }
   };
 
+  const nav_items = [
+    {
+      key: '1',
+      icon: <HomeTwoTone style={{ fontSize: '22px' }} twoToneColor="#2fafeb" />,
+      label: 'Dashboard',
+      link: '/',
+    },
+    {
+      key: '2',
+      icon: <PlusSquareTwoTone style={{ fontSize: '22px' }} twoToneColor="#2fafeb" />,
+      label: 'Create',
+    },
+    {
+      key: '3',
+      icon: <SwitcherTwoTone style={{ fontSize: '22px' }} twoToneColor="#2fafeb" />,
+      label: 'Search',
+    },
+    {
+      key: '4',
+      icon: <CompassTwoTone style={{ fontSize: '22px' }} twoToneColor="#2fafeb" />,
+      label: 'Explore',
+    },
+    {
+      key: '5',
+      icon: <MessageTwoTone style={{ fontSize: '22px' }} twoToneColor="#2fafeb" />,
+      label: 'Messages',
+      link: '/messages',
+    },
+    {
+      key: '6',
+      icon: <BellTwoTone style={{ fontSize: '22px' }} twoToneColor="#2fafeb" />,
+      label: 'Notification',
+    },
+    {
+      key: '7',
+      icon: <CloseCircleTwoTone style={{ fontSize: '22px' }} twoToneColor="#2fafeb" />,
+      label: 'Logout',
+      onClick: logoutUser,
+    },
+  ];
+
+  const activeKey = nav_items.find((item) => item.link === window.location.pathname)?.key || '1';
 
   return (
-    <nav className="navbar navbar-dark d-flex flex-column sticky-sidebar">
-      <Link to="/" className="navbar-brand mb-3 mt-5">
-        Connect
-      </Link>
+    <>
+      <Sider
+        collapsible
+        collapsed={collapsed}
+        onCollapse={(value) => setCollapsed(value)}
+        style={{
+          overflow: 'auto',
+          height: '100vh',
+          position: 'fixed',
+          left: 0,
+          top: 0,
+          bottom: 0,
+        }}
+        theme="light"
+      >
+        <div className="demo-logo-vertical" />
 
-      <ul className="navbar-nav flex-grow-1 vh-100">
-        <li className="nav-item">
-          <Link to="/" className="nav-link">
-            <HomeOutlined /> Home
-          </Link>
-        </li>
-
-        <li className="nav-item">
-          <Link to="/search" className="nav-link">
-            <SearchOutlined /> Search
-          </Link>
-        </li>
-        <li className="nav-item">
-          <Link to="/explore" className="nav-link">
-            <CompassOutlined /> Explore
-          </Link>
-        </li>
-        <li className="nav-item">
-          <Link to="/messages" className="nav-link">
-            <MessageOutlined /> Message
-          </Link>
-        </li>
-        <li className="nav-item">
-          <Link to="/notifications" className="nav-link">
-            <BellOutlined /> Notification
-          </Link>
-        </li>
-        <li className="nav-item">
-          <Link to="/create" className="nav-link">
-            <PlusOutlined /> Create
-          </Link>
-        </li>
-        <li className="nav-item pointer">
-          <a onClick={logoutUser} className="nav-link">
-            <LogoutOutlined /> Logout
-          </a>
-        </li>
-        <li className="nav-item">
-          <Link to={`/${data.username}`} className="nav-link">
-            <img
-              src="/image_pp_1.jpeg"
-              alt="Profile"
-              className="rounded-circle mr-2"
-              width="20"
-              height="20"
+        {!collapsed && (
+          <Card style={{ width: 190 }} className="mx-auto shadow-sm" hoverable={true} size="small" type="inner">
+            <Meta
+              avatar={
+                <Avatar style={{ verticalAlign: 'middle' }} size="large" 
+                src="/avatar/avatar_1.jpg"/>
+              }
+              title={data.username}
             />
-            <span className="">Profile</span>
-          </Link>
-        </li>
-        <span className='text-warning'>{ data.username }</span>
-      </ul>
-    </nav>
+          </Card>
+        )}
+        {collapsed && (
+          <Card style={{ width: 65 }} className="mx-auto shadow-sm" hoverable={true} size="small" type="inner">
+            <Meta
+              avatar={<Avatar style={{ verticalAlign: 'middle' }} size="large"
+              src="/avatar/avatar_1.jpg"
+            />}
+              title="‏‏"
+            />
+          </Card>
+        )}
+
+        <div className="mt-3"></div>
+        <Menu theme="light" defaultSelectedKeys={[activeKey]} mode="inline">
+          {nav_items.map((item) => (
+            <Menu.Item
+              key={item.key}
+              icon={item.icon}
+              onClick={item.onClick}
+              className={window.location.pathname === item.link ? 'ant-menu-item-selected fw-bold' : ''}
+            >
+              {item.link ? (
+                <Link to={item.link} className="text-decoration-none">
+                  {item.label}
+                </Link>
+              ) : (
+                item.label
+              )}
+            </Menu.Item>
+          ))}
+        </Menu>
+        <div className="demo-logo-vertical" />
+      </Sider>
+    </>
   );
 };
 
