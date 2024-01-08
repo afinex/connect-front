@@ -4,7 +4,7 @@ import DashboardContent from "../../DashboardContent";
 const App = () => {
   return (
     <CustomLayout>
-      <h1>Your dynamic content goes here!</h1>
+      <DashboardContent />
     </CustomLayout>
   );
 };
