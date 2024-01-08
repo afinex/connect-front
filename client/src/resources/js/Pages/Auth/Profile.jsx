@@ -15,6 +15,7 @@ import CustomLayout from "../../Layout/CustomLayout";
 
 const Profile = () => {
   const [apiData, setApiData] = useState(null);
+  const [postData, setPostData] = useState(null);
   const { username } = useParams();
   const dispatch = useDispatch();
 
@@ -30,8 +31,18 @@ const Profile = () => {
           },
         }
       );
-
       setApiData(await response.data);
+
+      const response2 = await axios.get(
+        `${import.meta.env.VITE_APP_API_SERVER}/fetch`,
+        {
+          headers: {
+            Authorization: `Bearer ${fetchAccessCookies}`,
+          },
+        }
+      );
+      setPostData(await response2.data);
+
     } catch (error) {
       const handleResult = await handleApiError(error, dispatch);
       if (handleResult.success) {
@@ -53,6 +64,14 @@ const Profile = () => {
             {apiData?.currentUser && (<Link to='/setting/general'>Setting</Link>)}
             { apiData &&(<pre>{JSON.stringify(apiData, null, 4)}</pre>)}
             { apiData === null &&(<LoadingOutlined />)}
+
+
+            { postData &&(<pre>{JSON.stringify(postData, null, 4)}</pre>)}
+            {/* { postData &&<img
+            src={`${import.meta.env.VITE_APP_PUBLIC_SERVER}/images/posts/${postData.image.filename}`}/>} */}
+            { postData === null &&(<LoadingOutlined />)}
+
+            
             <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
           </div>
           <div className="bg-light border rounded-3">
