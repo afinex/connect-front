@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+
+import { HeartOutlined, MessageOutlined, ShareAltOutlined, BookOutlined, InfoCircleTwoTone } from '@ant-design/icons';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { HeartOutlined, MessageOutlined, ShareAltOutlined, BookOutlined } from '@ant-design/icons';
-import axios from 'axios';  // Make sure to import axios
-import SideNav from '../../Components/SideNav';
 
 import { getAccessTokenCookies } from '../../Helpers/functions';
 import { handleApiError } from '../../Helpers/apiUtil';
 
-import { useDispatch } from 'react-redux';
+import axios from 'axios';  // Make sure to import axios
 
-import {InfoCircleTwoTone} from "@ant-design/icons";
 const ConnectFeedItem = (feedData) => {
   return (
     <div className="card mt-4">
@@ -76,7 +75,7 @@ const DashboardContent = () => {
   }, []);
 
   return (
-    <div className="container-fluid dashboard-content-container">
+    <div className="container-fluid">
       <div className="row">
         <div className="col-md-5 offset-md-3">
         {/* {feedData && Object.keys(feedData).length > 0 && feedData.map(item => (

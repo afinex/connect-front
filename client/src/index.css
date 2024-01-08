@@ -23,13 +23,6 @@ code {
   cursor: pointer;
 }
 
-/* Add these styles to your CSS or SCSS file */
-
-.dashboard-content-container {
-  overflow-y: auto;
-  height: 100vh;
-}
-
 .navbar-dark {
   background-color: #000000 !important;
 }
