@@ -11,7 +11,7 @@ export const handleApiError = async (error, dispatch) => {
       return await handleRefreshTokenExpiration(dispatch);
     }
   } else {
-    console.error('handleApiError:', err);
+    console.error('handleApiError:', error);
     return { success: false };
   }
 };
